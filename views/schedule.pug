@@ -1,0 +1,16 @@
+extends layout
+
+block content
+  div(class='card mb-4')
+    table(class='table text-center m-0')
+      thead.thead-dark
+        tr
+          th(scope='col')='ID'
+          th(scope='col')='Origin'
+          th(scope='col')='Destination'
+          th(scope='col')='Departure'
+      tbody
+        for data in schedule
+          tr
+            for item in data
+              td=item

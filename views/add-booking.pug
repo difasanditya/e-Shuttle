@@ -1,0 +1,25 @@
+extends layout
+
+block style
+  link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha14/css/tempusdominus-bootstrap-4.min.css")
+
+block content
+  form(id='bookingForm', method='POST', class='card p-4')
+    block form
+    div(class='mb-3')
+      label(for='name')='Route'
+      select(id='route' class='custom-select d-block w-100')
+        option(value='null', selected='')='Choose...'
+        for item in route
+          option(value=item.id)=item.route
+      div.invalid-feedback='Please choose a route.'
+    div.mb-3
+      label(for='date')='Date'
+      input(type='text', class='form-control datetimepicker-input', id='date', data-toggle='datetimepicker', data-target='#date')
+      div.invalid-feedback='Please enter a valid date.'
+    button(class='btn btn-dark', type='submit')='Book Now'
+
+block script
+  script(src="/javascripts/moment.js")
+  script(src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha14/js/tempusdominus-bootstrap-4.min.js")
+  script(src="/javascripts/booking.js")

@@ -1,0 +1,16 @@
+extends layout
+
+block content
+  form(method='POST', id='changeMailForm', class='needs-validation card p-4')
+    div.mb-3
+      label(for='oldEmail')='Your Old Email Address'
+      input(type='email', class='form-control', id='oldEmail', readonly='', value=email)
+    div.mb-3
+      label(for='email')='Your New Email Address'
+      input(type='email', class='form-control', id='email', placeholder='you@example.com')
+      div.invalid-feedback='Please enter a valid email address.'
+    div.mb-3
+      label(for='password')='Enter Password'
+      input(type='password', class='form-control', id='password', placeholder='')
+      div.invalid-feedback='Please enter your password.'
+    button(class='btn btn-dark', type='submit')='Change Email'

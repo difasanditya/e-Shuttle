@@ -1,0 +1,12 @@
+extends layout
+
+block content
+  div(class='card mb-4')
+    table(class='table table-striped m-0')
+      tbody
+        for item in profile
+          tr
+            th=item.title
+            td=item.content
+  div(class='btn-group d-flex justify-content-center', role='group')
+    a(type='button', class='btn btn-dark', href='edit-profile')='Edit Profile'

@@ -1,0 +1,19 @@
+doctype html
+html(lang='en')
+  head
+    meta(charset='UTF-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    meta(http-equiv='X-UA-Compatible', content='ie=edge')
+    title='Sign In'
+    script(src='/javascripts/bundle.js')
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='/stylesheets/login.css')
+  body.bg-dark
+    div(class='form-signin card')
+      h2.mb-4='Sign In'
+      form(id='loginForm', method='POST')
+        input(id='inputEmail', class='mb-2 form-control', placeholder='Email address', required='' type='email')
+        input(id='inputPassword', class='form-control', placeholder='Password', required='', type='password')
+        input(class='mt-4 btn btn-dark btn-block' type="submit" value="Submit")
+    script(src="/javascripts/login.js")
+    
