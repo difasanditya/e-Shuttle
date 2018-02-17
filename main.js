@@ -1,0 +1,5 @@
+window.$ = window.jQuery = require('jquery')
+require('popper.js')
+require('bootstrap')
+require('moment')
+require('./node_modules/bootstrap/dist/css/bootstrap.css')
