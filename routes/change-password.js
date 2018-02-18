@@ -5,7 +5,15 @@ var firebase = require('../firebase');
 var menu = require('./menu');
 
 router.post('/', function (req, res) {
-
+    firebase.auth.signInWithEmailAndPassword(firebase.auth.currentUser.email, req.body.password).then(function (user) {
+        user.updatePassword(req.body.newPassword).then(function () {
+            console.log('[e-Shuttle][post/change-password][Password changed]');
+        }).catch(function (error) {
+            console.log('[e-Shuttle][post/change-password][Error][update-password][' + error + ']');
+        });
+    }).catch(function (error) {
+        console.log('[e-Shuttle][post/change-password][Error][sign-in][' + error + ']');
+    });
 });
 
 router.get('/', function (req, res) {
