@@ -1,23 +1,29 @@
 $(function () {
     $('#date').datetimepicker({
-        format: 'L',
+        format: 'DD/MM/YYYY',
         daysOfWeekDisabled: [0, 6],
         minDate: new Date().setDate(new Date().getDate() + 7)
     });
 
     $("#bookingForm").submit(function (event) {
         event.preventDefault();
-        var route = $('#route');
-        var tanggal = $('#date').val();
+        var route = $('#route').val();
+        var date = $('#date').val();
         $.ajax({
-            url: '/booking',
+            url: '/add-booking',
             method: 'post',
             data: JSON.stringify({
                 route: route,
-                tanggal: tanggal
+                date: date
             }),
             contentType: 'application/json',
-            success: alert('booking success')
+            success: success()
         });
     });
 });
+
+function success() {
+    $('#route').val('null');
+    $('#date').val('');
+    alert('booking success');
+}
