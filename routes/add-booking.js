@@ -6,17 +6,15 @@ var nodemailer = require('nodemailer');
 var menu = require('./menu');
 
 router.post('/', function (req, res) {
-    var route = req.body.route;
-    var date = req.body.date;
     var bookingCode = firebase.database.ref('history').push({
         userID: firebase.auth.currentUser.uid,
-        route: route,
-        date: date,
+        route: req.body.route,
+        date: req.body.date,
         status: 'Not Used'
     }).key;
     firebase.database.ref('user').child(firebase.auth.currentUser.uid).once('value', function (snapshot) {
         var name = snapshot.val().name;
-        firebase.database.ref('schedule').child(route).once('value', function (snapshot) {
+        firebase.database.ref('schedule').child(req.body.route).once('value', function (snapshot) {
             var mailOptions = {
                 from: '"Shuttle Account" <shuttle.management.bca@gmail.com>',
                 to: firebase.auth.currentUser.email,
@@ -26,7 +24,8 @@ router.post('/', function (req, res) {
                     'Silakan tunjukkan email berikut kepada petugas shuttle.' + '<br>' +
                     'Berikut data pemesanan Anda:' + '<br><br>' +
                     'Rute : ' + snapshot.val().origin + ' - ' + snapshot.val().destination + '<br>' +
-                    'Tanggal Berangkat : ' + date + '<br><br>' +
+                    'Tanggal Keberangkat : ' + req.body.date + '<br>' +
+                    'Jam Keberangkatan : ' + snapshot.val().departure + '<br>' +
                     '<img src = "https://chart.googleapis.com/chart?cht=qr&chl=localhost:3000/verification/' + bookingCode + '&chs=180x180&choe=UTF-8&chld=L|2"> <br><br>' +
                     'Terima kasih <br><br>Hormat kami, <br>BCA Learning Institute',
                 attachments: [{
