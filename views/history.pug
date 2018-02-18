@@ -1,5 +1,6 @@
 extends layout
 
+
 block content
   div(class='card mb-4')
     table(class='table text-center m-0')
@@ -8,8 +9,18 @@ block content
           th(scope='col')='Date'
           th(scope='col')='Route'
           th(scope='col')='Status'
+          th(scope='col')='Action'
       tbody
+        -var count = 0
         for data in history
           tr
             for item in data
               td=item
+            td
+              div(class='btn-group', role='group')
+                button(type='button', class="btn btn-dark", onclick='email("'+ id[count] +'")')='Email'
+                button(type='button', class="btn btn-dark", onclick='cancel("' + id[count] + '")')='Cancel'
+                -count += 1
+
+block script
+  script(src="/javascripts/history.js")

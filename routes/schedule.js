@@ -8,7 +8,7 @@ router.get('/', function (req, res) {
     firebase.database.ref('schedule').once('value').then(function (snapshot) {
         var schedule = [];
         snapshot.forEach(function (item) {
-            schedule.push([item.key, item.val().origin, item.val().destination, item.val().departure]);
+            schedule.push([item.val().origin, item.val().destination, item.val().departure]);
         });
         res.render('schedule', {
             title: 'Schedule',

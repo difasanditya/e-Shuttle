@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var firebase = require('../firebase');
-var nodemailer = require('nodemailer');
+var mailer = require('../mailer');
 
 var menu = require('./menu');
 
@@ -12,9 +12,9 @@ router.post('/', function (req, res) {
         date: req.body.date,
         status: 'Not Used'
     }).key;
-    firebase.database.ref('user').child(firebase.auth.currentUser.uid).once('value', function (snapshot) {
+    firebase.database.ref('user').child(firebase.auth.currentUser.uid).once('value').then(function (snapshot) {
         var name = snapshot.val().name;
-        firebase.database.ref('schedule').child(req.body.route).once('value', function (snapshot) {
+        firebase.database.ref('schedule').child(req.body.route).once('value').then(function (snapshot) {
             var mailOptions = {
                 from: '"Shuttle Account" <shuttle.management.bca@gmail.com>',
                 to: firebase.auth.currentUser.email,
@@ -33,13 +33,7 @@ router.post('/', function (req, res) {
                     path: 'https://chart.googleapis.com/chart?cht=qr&chl=localhost:3000/' + bookingCode + '&chs=180x180&choe=UTF-8&chld=L|2'
                 }]
             };
-            nodemailer.createTransport({
-                service: 'gmail',
-                auth: {
-                    user: 'shuttle.management.bca@gmail.com',
-                    pass: 'pedj04ng.Ejhail'
-                },
-            }).sendMail(mailOptions, function (error, info) {
+            mailer.sendMail(mailOptions, function (error, info) {
                 if (error) {
                     console.log('[e-Shuttle][add-booking][Error][' + error + ']');
                 } else {
